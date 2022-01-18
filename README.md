@@ -1,10 +1,8 @@
-# Tietokantasovellus, syksy 2021  
-## Fisupassi
-Due to personal reasons, I regret to inform that I have not been able to work on the application as much as I would have hoped. The application will be worked on more extensively during the following weeks.  
+# Fisupassi
 
 This application allows users to compete against eachother in fishing. The application will give scores depending on the user's catch: type of the fish, size of the fish and so on. Users can also check what fishes others have caught and where they have caught them. Users can register and thus save their catches and scores on the database, or use the application unregistered to view the highscores.  
 
-The application is not runable currently, although the documentation is on relatively good form. The application will be worked on extensively during the following weeks.
+The application is not runable currently, although the documentation is on relatively good form. 
 
 ## Documentation
 * [Application description]
