@@ -16,6 +16,6 @@ TBA - When the application is close to finishing
 WIP - Will be updated once the application can be run  
 
 ## Features
-[ ] User can register an account and log in.
-[ ] User can add a catch and its information.
-[ ] User can see what they've catched.
+[x] User can register an account and log in.
+[] User can add a catch and its information.
+[] User can see what they've catched.
