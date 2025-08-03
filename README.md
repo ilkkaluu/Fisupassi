@@ -22,29 +22,29 @@ $ git clone https://github.com/ilkkaluu/Fisupassi.git
 - Move to the application directory
 
 - Create the Python-virtual environment: 
-´´´
+```
 $ python -m venv venv
-´´´
+```
 
 - Activate the virtual environment: 
-´´´
+```
 $ source venv/bin/activate
-´´´
+```
 
 - Install the flask-library: 
-´´´
+```
 $ pip install flask
-´´´
+```
 
 - Create the database "database.db": 
-´´´
+```
 $ sqlite3 database.db < schema.sql
-´´´
+```
 
 - Run the application: 
-´´´
+```
 $ flask run
-´´´
+```
 
 ## Features
 - [x] User can register an account and log in.
