@@ -15,9 +15,9 @@ TBA - When the application is close to finishing
 ## Instructions
 ### Installation
 - Cloning the project: 
-´´´
+``````
 $ git clone https://github.com/ilkkaluu/Fisupassi.git
-´´´
+```
 
 - Move to the application directory
 
