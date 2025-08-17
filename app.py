@@ -20,6 +20,11 @@ def index():
 def register():
     return render_template("register.html")
 
+@app.route("/new_fish")
+def new_fish():
+    require_login()
+    return render_template("new_fish.html")
+
 
 @app.route("/create", methods=["POST"])
 def create():
