@@ -36,8 +36,7 @@ def create():
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
 
-    return "Tunnus luotu" + \
-           "<br><a href='/login'>Kirjaudu sisään</a>"
+    return redirect("/login")
 
 
 
