@@ -20,6 +20,14 @@ def index():
 def register():
     return render_template("register.html")
 
+@app.route("/user")
+def user_profile():
+    require_login()
+    username = session["username"]
+    fish_list = db.get_user_fish(session["user_id"])
+
+    return render_template('user.html', username=username, fish_list=fish_list)
+
 @app.route("/new_fish")
 def new_fish():
     require_login()
