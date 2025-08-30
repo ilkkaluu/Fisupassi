@@ -43,7 +43,11 @@ def create_fish():
 @app.route("/create", methods=["POST"])
 def create():
     username = request.form["username"]
+    if not username or len(username) > 20:
+        return "VIRHE: tunnus ei voi olla tyhjä tai liian pitkä"
     password1 = request.form["password1"]
+    if not password1:
+        return "VIRHE: salasana ei voi olla tyhjä"
     password2 = request.form["password2"]
     if password1 != password2:
         return "VIRHE: salasanat eivät ole samat"
