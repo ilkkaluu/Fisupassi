@@ -2,41 +2,47 @@
 <html>
 
 <head>
+  <style>
+    body {
+      background-color: lightblue;
+    }
+  </style>
   <title>Fisupassi</title>
 </head>
+
 <body>
   <header>
     <h1>Fisupassi</h1>
   </header>
 
-<body>
-  {% if session.username %}
-  <p>
-    Olet kirjautunut nimellä {{ session.username }}
-  </p>
-  <p>
-    <a href="/new_fish">Lisää uusi kala</a>
-  </p>
-  <p>
-    <a href="/user">Oma profiili</a>
-  </p>
-  <p>
-    <a href="/logout">Kirjaudu ulos</a>
-  </p>
-  {% else %}
-  <form action="/login" method="post">
+  <body>
+    {% if session.username %}
     <p>
-      Tunnus: <br />
-      <input type="text" name="username" />
+      Olet kirjautunut nimellä {{ session.username }}
     </p>
     <p>
-      Salasana: <br />
-      <input type="password" name="password" />
+      <a href="/new_fish">Lisää uusi kala</a>
     </p>
-    <input type="submit" value="Kirjaudu" />
-  </form>
-  <a href="/register">Rekisteröidy</a>
-  {% endif %}
-</body>
+    <p>
+      <a href="/user">Oma profiili</a>
+    </p>
+    <p>
+      <a href="/logout">Kirjaudu ulos</a>
+    </p>
+    {% else %}
+    <form action="/login" method="post">
+      <p>
+        Tunnus: <br />
+        <input type="text" name="username" />
+      </p>
+      <p>
+        Salasana: <br />
+        <input type="password" name="password" />
+      </p>
+      <input type="submit" value="Kirjaudu" />
+    </form>
+    <a href="/register">Rekisteröidy</a>
+    {% endif %}
+  </body>
 
 </html>
