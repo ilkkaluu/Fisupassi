@@ -22,3 +22,7 @@ def query(sql, params=[]):
     result = con.execute(sql, params).fetchall()
     con.close()
     return result
+
+def add_fish(user_id, fish_name, weight):
+    sql = "INSERT INTO fish (user_id, fish_name, weight) VALUES (?, ?, ?)"
+    execute(sql, [user_id, fish_name, weight])

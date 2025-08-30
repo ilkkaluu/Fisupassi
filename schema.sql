@@ -6,8 +6,7 @@ CREATE TABLE users (
 
 CREATE TABLE fish (
     id INTEGER PRIMARY KEY,
-    fish_species TEXT,
-    fish_length INTEGER,
-    catch_location TEXT,
+    fish_name TEXT,
+    weight NUMBER,
     user_id INTEGER REFERENCES users
 );

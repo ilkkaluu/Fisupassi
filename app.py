@@ -25,6 +25,20 @@ def new_fish():
     require_login()
     return render_template("new_fish.html")
 
+@app.route("/create_fish", methods=["POST"])
+def create_fish():
+    require_login()
+    fish_name = request.form["fish_name"]
+    weight = request.form["weight"]
+    
+    if not fish_name or not weight:
+        abort(403)
+
+    user_id = session["user_id"]
+    db.add_fish(user_id, fish_name, weight)
+    
+    return redirect("/")
+
 
 @app.route("/create", methods=["POST"])
 def create():
