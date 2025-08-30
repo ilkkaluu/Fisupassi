@@ -47,6 +47,11 @@ def create_fish():
     
     return redirect("/")
 
+@app.route("/remove_fish/<int:id>", methods=["POST"])
+def remove_fish(id):
+    require_login()
+    db.remove_fish(id)
+    return redirect("/user")
 
 @app.route("/create", methods=["POST"])
 def create():

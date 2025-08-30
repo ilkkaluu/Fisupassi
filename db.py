@@ -27,6 +27,10 @@ def add_fish(user_id, fish_name, weight):
     sql = "INSERT INTO fish (user_id, fish_name, weight) VALUES (?, ?, ?)"
     execute(sql, [user_id, fish_name, weight])
 
+def remove_fish(id):
+    sql = "DELETE FROM fish WHERE id = ?"
+    execute(sql, [id])
+
 def get_user_fish(user_id):
-    sql = "SELECT fish_name, weight FROM fish WHERE user_id = ?"
+    sql = "SELECT id, fish_name, weight FROM fish WHERE user_id = ?"
     return query(sql, [user_id])

@@ -16,7 +16,13 @@
     <h2>Omat saaliit</h2>
     <ul>
         {% for fish in fish_list %}
-            <li>{{ fish.fish_name }} - {{ fish.weight }} kg</li>
+            <li>
+                {{ fish.id}}
+            {{ fish.fish_name }} - {{ fish.weight }} kg
+            <form action="/remove_fish/{{ fish.id }}" method="POST" style="display:inline;">
+                <button type="submit">Poista</button>
+            </form>
+            </li>
         {% endfor %}
     </ul>
     <a href="/">Takaisin etusivulle</a>
