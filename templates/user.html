@@ -17,8 +17,8 @@
     <ul>
         {% for fish in fish_list %}
             <li>
-                {{ fish.id}}
             {{ fish.fish_name }} - {{ fish.weight }} kg
+            <button type="submit">Muokkaa</button>
             <form action="/remove_fish/{{ fish.id }}" method="POST" style="display:inline;">
                 <button type="submit">Poista</button>
             </form>
