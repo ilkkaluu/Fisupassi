@@ -12,12 +12,21 @@
 </head>
 <body>
     <h1>Uusi kala</h1>
-    <form action="/submit_catch" method="post">
+    <form action="/" method="post">
         <label for="fish_name">Kalalaji:</label>
-        <input type="text" id="fish_name" name="fish_name" required><br><br>
-        
-        <label for="weight">Paino (kg):</label>
-        <input type="number" id="weight" name="weight" required><br><br>
+        <select id="fish_name" name="fish_name" required>
+            <option value="">Valitse kalalaji</option>
+            <option value="Ahven">Ahven</option>
+            <option value="Hauki">Hauki</option>
+            <option value="Kuha">Kuha</option>
+            <option value="Lohi">Lohi</option>
+            <option value="Siika">Siika</option>
+            <option value="Särki">Särki</option>
+            <option value="Taimen">Taimen</option>
+        </select>
+        <br><br>
+        <label for="weight">Paino (<0 kg):</label>
+        <input type="number" id="weight" name="weight" required min="0.1" step="0.1"><br><br>
         
         <input type="submit" value="Lisää saalis"> 
     </form>
