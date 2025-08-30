@@ -3,6 +3,7 @@ from flask import Flask
 from flask import abort, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import config
+import fish
 import db
 
 app = Flask(__name__)
@@ -24,7 +25,7 @@ def register():
 def user_profile():
     require_login()
     username = session["username"]
-    fish_list = db.get_user_fish(session["user_id"])
+    fish_list = fish.get_user_fish(session["user_id"])
 
     return render_template('user.html', username=username, fish_list=fish_list)
 
@@ -43,14 +44,45 @@ def create_fish():
         abort(403)
 
     user_id = session["user_id"]
-    db.add_fish(user_id, fish_name, weight)
+    fish.add_fish(user_id, fish_name, weight)
     
     return redirect("/")
+
+@app.route("/edit_fish/<int:id>", methods=["POST"])
+def edit_fish(id):
+    require_login()
+    fish_to_edit = fish.get_fish(id)
+    if not fish_to_edit:
+        abort(404)
+    if fish_to_edit["user_id"] != session["user_id"]:
+        abort(403)
+    return render_template("edit_fish.html", fish=fish_to_edit)
+
+@app.route("/update_fish", methods=["POST"])
+def update_fish():
+    require_login()
+    fish_id = request.form["id"]
+    fish_to_update = fish.get_fish(fish_id)
+    if not fish_to_update:
+        abort(404)
+    if fish_to_update["user_id"] != session["user_id"]:
+        abort(403)
+    fish_name = fish_to_update["fish_name"]
+    if request.form.get("fish_name") is not None:
+        fish_name = request.form["fish_name"]
+    if not fish_name:
+        abort(403)
+    weight = request.form["weight"]
+    if not weight:
+        abort(403)
+
+    fish.edit_fish(fish_id, fish_name, weight)
+    return redirect("/user")
 
 @app.route("/remove_fish/<int:id>", methods=["POST"])
 def remove_fish(id):
     require_login()
-    db.remove_fish(id)
+    fish.remove_fish(id)
     return redirect("/user")
 
 @app.route("/create", methods=["POST"])

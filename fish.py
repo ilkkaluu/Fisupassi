@@ -10,7 +10,7 @@ def get_fish_list():
     return db.query(sql)
 
 def get_fish(id):
-    sql = "SELECT id, fish_name, weight FROM fish WHERE id = ?"
+    sql = "SELECT id, fish_name, weight, user_id FROM fish WHERE id = ?"
     result = db.query(sql, [id])
     return result[0] if result else None
 
