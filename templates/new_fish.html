@@ -14,7 +14,8 @@
 <body>
     <h1>Uusi kala</h1>
     <form action="/create_fish" method="post">
-        <label for="fish_name">Kalalaji:</label>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <label for="fish_name">Kalalaji:</label>
         <select id="fish_name" name="fish_name" required>
             <option value="">Valitse kalalaji</option>
             <option value="Ahven">Ahven</option>

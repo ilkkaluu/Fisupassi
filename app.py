@@ -1,4 +1,4 @@
-import sqlite3
+import secrets, sqlite3
 from flask import Flask
 from flask import abort, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -11,6 +11,10 @@ app.secret_key = config.secret_key
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf_token():
+    if request.form["csrf_token"] != session.get("csrf_token"):
         abort(403)
 
 @app.route("/")
@@ -37,6 +41,7 @@ def new_fish():
 @app.route("/create_fish", methods=["POST"])
 def create_fish():
     require_login()
+    check_csrf_token()
     fish_name = request.form["fish_name"]
     weight = request.form["weight"]
     
@@ -51,6 +56,7 @@ def create_fish():
 @app.route("/edit_fish/<int:id>", methods=["POST"])
 def edit_fish(id):
     require_login()
+    check_csrf_token()
     fish_to_edit = fish.get_fish(id)
     if not fish_to_edit:
         abort(404)
@@ -61,6 +67,7 @@ def edit_fish(id):
 @app.route("/update_fish", methods=["POST"])
 def update_fish():
     require_login()
+    check_csrf_token()
     fish_id = request.form["id"]
     fish_to_update = fish.get_fish(fish_id)
     if not fish_to_update:
@@ -82,6 +89,7 @@ def update_fish():
 @app.route("/remove_fish/<int:id>", methods=["POST"])
 def remove_fish(id):
     require_login()
+    check_csrf_token()
     fish.remove_fish(id)
     return redirect("/user")
 
@@ -124,6 +132,7 @@ def login():
 
         if check_password_hash(password_hash, password):
             session["user_id"] = user_id
+            session["csrf_token"] = secrets.token_hex(16)
             session["username"] = username
             return redirect("/")
         return "VIRHE: väärä tunnus tai salasana"

@@ -8,7 +8,8 @@
   <body>
   <h1>Rekisteröidy</h1>
   <form action="/create" method="post">
-      <p>
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  <p>
         Tunnus: <br />
         <input type="text" name="username" />
       </p>

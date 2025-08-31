@@ -22,9 +22,11 @@
             <li>
             {{ fish.fish_name }} - {{ fish.weight }} kg
             <form action="/edit_fish/{{ fish.id }}" method="POST" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 <button type="submit">Muokkaa</button>
             </form>
             <form action="/remove_fish/{{ fish.id }}" method="POST" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
                 <button type="submit">Poista</button>
             </form>
             </li>

@@ -14,7 +14,8 @@
 <body>
     <h1>Muokkaa kalaa</h1>
     <form action="/update_fish" method="POST">
-        <label for="fish_name">Kalalaji:</label>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <label for="fish_name">Kalalaji:</label>
         <select id="fish_name" name="fish_name" required>
             <option value="" disabled >Valitse kalalaji</option>
             <option value="{{ fish.fish_name }}" disabled hidden selected>{{ fish.fish_name }}</option>
