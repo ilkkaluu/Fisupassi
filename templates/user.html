@@ -14,9 +14,25 @@
 <body>
     <h1>Käyttäjäprofiili</h1>
     <p>Tervetuloa, {{ username }}!</p>
+    <p>Olet saanut yhteensä {{ fish_list|length }} kalaa.</p>
     <h2>Omat saaliit</h2>
-        <p>Olet saanut yhteensä {{ fish_list|length }} kalaa.</p>
-
+        <form method="GET" action="/user">
+            <label for="fish_search">Etsi kalalajia:</label>
+            <select name="fish_search" id="fish_search">
+                <option value="">Valitse kalalaji</option>
+                <option value="Ahven">Ahven</option>
+                <option value="Hauki">Hauki</option>
+                <option value="Kuha">Kuha</option>
+                <option value="Lohi">Lohi</option>
+                <option value="Siika">Siika</option>
+                <option value="Särki">Särki</option>
+                <option value="Taimen">Taimen</option>
+            </select>
+            <button type="submit">Hae</button>
+        </form>
+        {% if search_result is defined %}
+            <p>Olet saanut yhteensä {{ search_result }} kappaletta {{ fish_search }}.</p>
+        {% endif %}
     <ul>
         {% for fish in fish_list %}
             <li>

@@ -30,8 +30,12 @@ def user_profile():
     require_login()
     username = session["username"]
     fish_list = fish.get_user_fish(session["user_id"])
-
-    return render_template('user.html', username=username, fish_list=fish_list)
+    search_result = None
+    fish_search = request.args.get("fish_search")
+    if fish_search:
+        filtered = [f for f in fish_list if f["fish_name"] == fish_search]
+        search_result = len(filtered)
+    return render_template('user.html', username=username, fish_list=fish_list, search_result=search_result, fish_search=fish_search)
 
 @app.route("/new_fish")
 def new_fish():
