@@ -2,9 +2,11 @@
 <html>
   <head>
     <title>Kirjautuminen</title>
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
   </head>
 
   <body>
+  <h1>Kirjaudu sisään</h1>
     {% if session.username %}
     <p>Olet kirjautunut nimellä {{ session.username }}</p>
     <p>
