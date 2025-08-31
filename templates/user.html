@@ -15,6 +15,8 @@
     <h1>Käyttäjäprofiili</h1>
     <p>Tervetuloa, {{ username }}!</p>
     <h2>Omat saaliit</h2>
+        <p>Olet saanut yhteensä {{ fish_list|length }} kalaa.</p>
+
     <ul>
         {% for fish in fish_list %}
             <li>
