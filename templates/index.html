@@ -14,6 +14,11 @@
 <body>
   <header>
     <h1>Fisupassi</h1>
+    {% if session.username %}
+    <form action="/logout" method="get" style="position:absolute; top:1rem; right:1rem; z-index:10;">
+      <button type="submit" style="background: var(--accent-color); color: #fff; border: none; padding: 0.5em 1em; border-radius: var(--border-radius); cursor: pointer;">Kirjaudu ulos</button>
+    </form>
+    {% endif %}
   </header>
 
   <body>
@@ -21,15 +26,14 @@
     <p>
       Olet kirjautunut nimellä {{ session.username }}
     </p>
-    <p>
-      <a href="/new_fish">Lisää uusi kala</a>
-    </p>
-    <p>
-      <a href="/user">Oma profiili</a>
-    </p>
-    <p>
-      <a href="/logout">Kirjaudu ulos</a>
-    </p>
+    <form action="/new_fish" method="get" style="display:inline;">
+      <button type="submit" style="background: var(--accent-color); color: #fff; border: none; padding: 0.5em 1em; border-radius: var(--border-radius); cursor: pointer;">Lisää uusi kala</button>
+    </form>
+    <form action="/user" method="get" style="display:inline;">
+      <button type="submit" style="background: var(--accent-color); color: #fff; border: none; padding: 0.5em 1em; border-radius: var(--border-radius); cursor: pointer;">Oma profiili</button>
+    </form>
+    <form action="/logout" method="get" style="display:inline;">
+  <!-- Logout button moved to header -->
     {% else %}
     <form action="/login" method="post">
       <p>
@@ -43,6 +47,9 @@
       <input type="submit" value="Kirjaudu" />
     </form>
     <a href="/register">Rekisteröidy</a>
+    <form action="/register" method="get" style="display:inline;">
+      <button type="submit" style="background: var(--accent-color); color: #fff; border: none; padding: 0.5em 1em; border-radius: var(--border-radius); cursor: pointer;">Rekisteröidy</button>
+    </form>
     {% endif %}
   </body>
 
