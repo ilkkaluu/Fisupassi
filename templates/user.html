@@ -30,10 +30,11 @@
             </select>
             <button type="submit">Hae</button>
         </form>
-        {% if search_result is defined %}
+        {% if search_result is defined and search_result is not none %}
             <p>Olet saanut yhteensä {{ search_result }} kappaletta {{ fish_search }}.</p>
         {% endif %}
-    <ul>
+    <h3>Saalislista</h3>
+        <ul>
         {% for fish in fish_list %}
             <li>
             {{ fish.fish_name }} - {{ fish.weight }} kg
@@ -48,5 +49,7 @@
             </li>
         {% endfor %}
     </ul>
-    <a href="/">Takaisin etusivulle</a>
+    <form action="/" method="get">
+        <button type="submit">Takaisin etusivulle</button>
+    </form>
 </body>
