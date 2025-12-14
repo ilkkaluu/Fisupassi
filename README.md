@@ -45,8 +45,9 @@ $ flask run
 - The user can check what they've caught on their profile. They can also search for a specific fish to see how many they've caught.
 ## Features
 - [x] User can register an account and log in.
-- [x] User can add a catch and its information.
-- [x] User can see what they've catched.
+- [x] Registered user can add a catch and its information.
+- [x] Registered user can see what they've catched on their profile page.
+- [x] Registered user can search with a fish species or username to see all the fish caught.
 
 ## Possible future features for the application
 - More fish species and different ways of catching them.
