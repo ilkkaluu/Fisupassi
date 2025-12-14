@@ -38,6 +38,16 @@ def index():
 @app.route("/search")
 def search():
     q = request.args.get("q", "").strip()
+
+@app.route("/highscore")
+def highscore():
+    rows = db.query(
+        "SELECT users.username AS username, COUNT(fish.id) AS total "
+        "FROM users LEFT JOIN fish ON fish.user_id = users.id "
+        "GROUP BY users.id ORDER BY total DESC, username ASC"
+    )
+    return render_template("highscore.html", rows=rows)
+
     results = []
     if q:
         results = fish.search_fish(q)

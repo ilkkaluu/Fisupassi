@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tulostaulukko</title>
+  <link rel="stylesheet" type="text/css" href="/static/main.css">
+</head>
+<body>
+  <h1>Tulostaulukko</h1>
+  <ol>
+    {% for r in rows %}
+      <li>{{ r.username }} - {{ r.total }} kalaa</li>
+    {% else %}
+      <li>Ei käyttäjiä</li>
+    {% endfor %}
+  </ol>
+  <form action="/" method="get"><button type="submit">Etusivulle</button></form>
+</body>
+</html>
