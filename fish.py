@@ -33,7 +33,7 @@ def get_user_fish(user_id):
 
 def search_fish(term):
     sql = (
-        "SELECT fish.id, fish.fish_name, fish.weight, users.username "
+        "SELECT fish.id, fish.fish_name, fish.weight, users.username, users.id AS user_id "
         "FROM fish JOIN users ON users.id = fish.user_id "
         "WHERE fish.fish_name = ? COLLATE NOCASE OR users.username = ? COLLATE NOCASE"
     )

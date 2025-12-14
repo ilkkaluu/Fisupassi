@@ -156,3 +156,12 @@ def logout():
         del session["user_id"]
         del session["username"]
     return redirect("/")
+
+@app.route("/profile/<username>")
+def public_profile(username):
+    sql = "SELECT id FROM users WHERE username = ?"
+    users = db.query(sql, [username])
+    if not users:
+        abort(404)
+    fish_list = fish.get_user_fish(users[0]["id"]) 
+    return render_template("user_public.html", username=username, fish_list=fish_list)

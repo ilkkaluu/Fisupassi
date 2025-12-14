@@ -41,7 +41,7 @@
       <h2>Tulokset "{{ q }}"</h2>
       <ul>
         {% for f in results %}
-          <li>{{ f.fish_name }} - {{ f.weight }} kg ({{ f.username }})</li>
+          <li>{{ f.fish_name }} - {{ f.weight }} kg (<a href="/profile/{{ f.username }}">{{ f.username }}</a>)</li>
         {% else %}
           <li>Ei tuloksia</li>
         {% endfor %}

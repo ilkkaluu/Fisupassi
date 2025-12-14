@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ username }} – Saaliit</title>
+  <link rel="stylesheet" type="text/css" href="/static/main.css">
+</head>
+<body>
+  <h1>{{ username }} – Saaliit</h1>
+  <ul>
+    {% for f in fish_list %}
+      <li>{{ f.fish_name }} - {{ f.weight }} kg</li>
+    {% else %}
+      <li>Ei saaliita</li>
+    {% endfor %}
+  </ul>
+  <form action="/" method="get"><button type="submit">Etusivulle</button></form>
+</body>
+</html>
