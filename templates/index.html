@@ -32,6 +32,22 @@
     <form action="/user" method="get" style="display:inline;">
       <button type="submit" style="background: var(--accent-color); color: #fff; border: none; padding: 0.5em 1em; border-radius: var(--border-radius); cursor: pointer;">Oma profiili</button>
     </form>
+    <form method="get" action="/search" style="display:block; margin: 1.5rem 0 0 1rem; padding: 0.5rem;">
+      <input type="text" name="q" placeholder="Hae kalalajilla tai käyttäjänimellä" value="{{ q or '' }}" style="padding: 0.4rem 0.6rem; margin-right: 0.5rem;" />
+      <button type="submit" style="background: var(--accent-color); color: #fff; border: none; padding: 0.6rem 1rem; border-radius: var(--border-radius); cursor: pointer;">Hae</button>
+    </form>
+    {% if q %}
+    <div style="margin-top: 1rem; padding: 0.5rem; background: #fff; border-radius: var(--border-radius);">
+      <h2>Tulokset "{{ q }}"</h2>
+      <ul>
+        {% for f in results %}
+          <li>{{ f.fish_name }} - {{ f.weight }} kg ({{ f.username }})</li>
+        {% else %}
+          <li>Ei tuloksia</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
     <form action="/logout" method="get" style="display:inline;">
     {% else %}
     <form action="/login" method="post">

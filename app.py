@@ -21,6 +21,14 @@ def check_csrf_token():
 def index():
     return render_template("index.html")
 
+@app.route("/search")
+def search():
+    q = request.args.get("q", "").strip()
+    results = []
+    if q:
+        results = fish.search_fish(q)
+    return render_template("index.html", q=q, results=results)
+
 @app.route("/register")
 def register():
     return render_template("register.html")

@@ -29,3 +29,12 @@ def remove_fish(id):
 def get_user_fish(user_id):
     sql = "SELECT id, fish_name, weight FROM fish WHERE user_id = ?"
     return db.query(sql, [user_id])
+
+
+def search_fish(term):
+    sql = (
+        "SELECT fish.id, fish.fish_name, fish.weight, users.username "
+        "FROM fish JOIN users ON users.id = fish.user_id "
+        "WHERE fish.fish_name = ? COLLATE NOCASE OR users.username = ? COLLATE NOCASE"
+    )
+    return db.query(sql, [term, term])
