@@ -38,6 +38,10 @@ def index():
 @app.route("/search")
 def search():
     q = request.args.get("q", "").strip()
+    results = []
+    if q:
+        results = fish.search_fish(q)
+    return render_template("index.html", q=q, results=results)
 
 @app.route("/highscore")
 def highscore():
@@ -47,11 +51,6 @@ def highscore():
         "GROUP BY users.id ORDER BY total DESC, username ASC"
     )
     return render_template("highscore.html", rows=rows)
-
-    results = []
-    if q:
-        results = fish.search_fish(q)
-    return render_template("index.html", q=q, results=results)
 
 @app.route("/register")
 def register():
