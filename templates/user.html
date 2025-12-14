@@ -49,6 +49,16 @@
             </li>
         {% endfor %}
     </ul>
+
+    <h3>Käyttäjien kommentteja</h3>
+    <ul>
+      {% for c in comments %}
+        <li><strong>{{ c.author }}</strong>: {{ c.content }}</li>
+      {% else %}
+        <li>Ei kommentteja</li>
+      {% endfor %}
+    </ul>
+
     <form action="/" method="get">
         <button type="submit">Takaisin etusivulle</button>
     </form>

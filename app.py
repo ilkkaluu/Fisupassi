@@ -9,6 +9,20 @@ import db
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+# Ensure comments table exists
+try:
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS comments (
+            id INTEGER PRIMARY KEY,
+            author_user_id INTEGER REFERENCES users,
+            target_user_id INTEGER REFERENCES users,
+            content TEXT,
+            created_at TEXT
+        )
+    """)
+except Exception:
+    pass
+
 def require_login():
     if "user_id" not in session:
         abort(403)
@@ -43,7 +57,8 @@ def user_profile():
     if fish_search:
         filtered = [f for f in fish_list if f["fish_name"] == fish_search]
         search_result = len(filtered)
-    return render_template('user.html', username=username, fish_list=fish_list, search_result=search_result, fish_search=fish_search)
+    comments = db.query("SELECT c.content, c.created_at, u.username AS author FROM comments c JOIN users u ON u.id = c.author_user_id WHERE c.target_user_id = ? ORDER BY c.id DESC", [session["user_id"]])
+    return render_template('user.html', username=username, fish_list=fish_list, search_result=search_result, fish_search=fish_search, comments=comments)
 
 @app.route("/new_fish")
 def new_fish():
@@ -157,11 +172,23 @@ def logout():
         del session["username"]
     return redirect("/")
 
-@app.route("/profile/<username>")
+@app.route("/profile/<username>", methods=["GET", "POST"])
 def public_profile(username):
     sql = "SELECT id FROM users WHERE username = ?"
     users = db.query(sql, [username])
     if not users:
         abort(404)
-    fish_list = fish.get_user_fish(users[0]["id"]) 
-    return render_template("user_public.html", username=username, fish_list=fish_list)
+    target_id = users[0]["id"]
+    if request.method == "POST":
+        require_login()
+        check_csrf_token()
+        content = request.form.get("content", "").strip()
+        if content:
+            db.execute(
+                "INSERT INTO comments (author_user_id, target_user_id, content, created_at) VALUES (?, ?, ?, datetime('now'))",
+                [session["user_id"], target_id, content]
+            )
+        return redirect(f"/profile/{username}")
+    fish_list = fish.get_user_fish(target_id)
+    comments = db.query("SELECT c.content, c.created_at, u.username AS author FROM comments c JOIN users u ON u.id = c.author_user_id WHERE c.target_user_id = ? ORDER BY c.id DESC", [target_id])
+    return render_template("user_public.html", username=username, fish_list=fish_list, comments=comments)
