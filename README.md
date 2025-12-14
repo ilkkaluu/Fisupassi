@@ -48,6 +48,8 @@ $ flask run
 - [x] Registered user can add a catch and its information.
 - [x] Registered user can see what they've catched on their profile page.
 - [x] Registered user can search with a fish species or username to see all the fish caught.
+- [x] Registered user can go to another user's profile and see their caught fish.
+- [x] Registered user can leave a comment on another user's profile page.
 
 ## Possible future features for the application
 - More fish species and different ways of catching them.

@@ -9,7 +9,7 @@ import db
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
-# Ensure comments table exists
+
 try:
     db.execute("""
         CREATE TABLE IF NOT EXISTS comments (
@@ -28,7 +28,7 @@ def require_login():
         abort(403)
 
 def check_csrf_token():
-    if request.form["csrf_token"] != session.get("csrf_token"):
+    if request.form.get("csrf_token") != session.get("csrf_token"):
         abort(403)
 
 @app.route("/")
