@@ -33,6 +33,8 @@ def check_csrf_token():
 
 @app.route("/")
 def index():
+    if not session.get("csrf_token"):
+        session["csrf_token"] = secrets.token_hex(16)
     return render_template("index.html")
 
 @app.route("/search")
@@ -155,14 +157,20 @@ def create():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
+        if not session.get("csrf_token"):
+            session["csrf_token"] = secrets.token_hex(16)
         return render_template("login.html")
 
     if request.method == "POST":
+        check_csrf_token()
         username = request.form["username"]
         password = request.form["password"]
 
         sql = "SELECT id, password_hash FROM users WHERE username = ?"
-        result = db.query(sql, [username])[0]
+        rows = db.query(sql, [username])
+        if not rows:
+            return render_template("login.html", error="VIRHE: väärä tunnus tai salasana")
+        result = rows[0]
         user_id = result["id"]
         password_hash = result["password_hash"]
 
@@ -171,7 +179,7 @@ def login():
             session["csrf_token"] = secrets.token_hex(16)
             session["username"] = username
             return redirect("/")
-        return "VIRHE: väärä tunnus tai salasana"
+        return render_template("login.html", error="VIRHE: väärä tunnus tai salasana")
 
 
 @app.route("/logout")

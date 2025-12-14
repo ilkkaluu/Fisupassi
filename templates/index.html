@@ -54,6 +54,7 @@
     <form action="/logout" method="get" style="display:inline;">
     {% else %}
     <form action="/login" method="post">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
       <p>
         Tunnus: <br />
         <input type="text" name="username" />
